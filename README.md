@@ -1,1 +1,1 @@
-# picasso_project
+# React + TypeScript + Vite
