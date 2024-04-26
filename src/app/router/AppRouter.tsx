@@ -7,13 +7,13 @@ import { Suspense } from 'react';
 
 export const AppRouter = () => {
   return (
-    <Routes>
-      <ErrorBoundary fallback={<ErrorPage />}>
-        <Suspense fallback="Loading...">
+    <ErrorBoundary fallback={<ErrorPage />}>
+      <Suspense fallback="Loading...">
+        <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/:id" element={<ItemPage />} />
-        </Suspense>
-      </ErrorBoundary>
-    </Routes>
+        </Routes>
+      </Suspense>
+    </ErrorBoundary>
   );
 };
