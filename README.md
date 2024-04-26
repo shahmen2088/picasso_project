@@ -23,3 +23,5 @@
 - [x] Проект собран при помощи [Vite](https://vitejs.dev)
 - [x] Кодовая база организована по методологи [Feature-Sliced Design](https://feature-sliced.design/ru/)
 - [x] Виртуализация реализована с помощью библиотеки [react-window](https://github.com/bvaughn/react-window)
+- [x] Есть применение Suspense: [AppRouter](src/app/router/AppRouter.tsx)
+- [x] Есть применение предохранителя: [ErrorBoundary](src/app/router/AppRouter.tsx)
