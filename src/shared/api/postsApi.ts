@@ -8,9 +8,10 @@ export type Post = {
 };
 
 type PostQuery = {
-  postQuery: string;
   limit: number;
+  start: number;
 };
+
 export const postsApi = createApi({
   reducerPath: 'posts',
   baseQuery: fetchBaseQuery({
@@ -18,9 +19,18 @@ export const postsApi = createApi({
   }),
   endpoints: (builder) => ({
     getPosts: builder.query<Post[], PostQuery>({
-      query: () => '/posts',
+      query: ({ limit = 10, start = 0 }) => ({
+        url: `/posts`,
+        params: {
+          _limit: limit,
+          _start: start,
+        },
+      }),
+    }),
+    getPost: builder.query<Post, string>({
+      query: (id) => `/posts/${id}`,
     }),
   }),
 });
 
-export const { useGetPostsQuery } = postsApi;
+export const { useGetPostsQuery, useGetPostQuery } = postsApi;

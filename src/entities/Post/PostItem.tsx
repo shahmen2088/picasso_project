@@ -1,17 +1,24 @@
-import React from 'react';
-import { Post } from '../../shared/api/postsApi';
+import { Link } from 'react-router-dom';
 
-export const PostItem = ({ userId, id, title, body }: Post) => {
+type Props = {
+  innerStyle: any;
+  userId: string;
+  id: string;
+  title: string;
+  body: string;
+};
+
+export const PostItem = ({ innerStyle, userId, id, title, body }: Props) => {
   return (
-    <li>
-      {' '}
+    <li style={innerStyle}>
       User ID: {userId}
       <br />
       Id: {id}
-      <br />
-      Title: {title}
-      <br />
-      Body: {body}
+      <Link to={`/${id}`}>
+        <h3>{title}</h3>
+        <p>{body}</p>
+      </Link>
+      <hr />
     </li>
   );
 };

@@ -1,31 +1,39 @@
-import { useNavigate } from 'react-router-dom';
-import { Post, useGetPostsQuery } from '../../shared/api/postsApi';
-import { PostList } from '../../entities/PostList/PostList';
+import { useGetPostsQuery } from '../../shared/api/postsApi';
 import { PostItem } from '../../entities/Post/PostItem';
+import { FixedSizeList as List } from 'react-window';
 
-export default function MainPage() {
-  const { data: posts, isLoading, isError } = useGetPostsQuery(1);
+export const MainPage = () => {
+  const { data: posts, isLoading } = useGetPostsQuery({ limit: 100, start: 0 });
 
-  const navigate = useNavigate();
-  if (isError) {
-    navigate('/error');
-  }
-
-  if (!posts) {
-    return;
-  }
-
-  const postList = posts.map((post: Post) => (
-    <PostItem
-      key={post.id}
-      userId={post.userId}
-      id={post.id}
-      title={post.title}
-      body={post.body}
-    />
-  ));
-
-  console.log(postList);
-
-  return <div>{posts && <PostList>{postList}</PostList>}</div>;
-}
+  return (
+    <>
+      {posts && (
+        <div>
+          <h1>Example of List Virtualization</h1>
+          <List
+            innerElementType={'ul'}
+            width={800}
+            height={550}
+            itemData={posts}
+            useIsScrolling={true}
+            itemSize={150}
+            itemCount={posts.length}
+          >
+            {({ index, style }) => {
+              return (
+                <PostItem
+                  innerStyle={style}
+                  userId={posts[index].userId}
+                  id={posts[index].id}
+                  title={posts[index].title}
+                  body={posts[index].body}
+                />
+              );
+            }}
+          </List>
+        </div>
+      )}
+      {isLoading && 'Loading...'}
+    </>
+  );
+};
